@@ -3,28 +3,31 @@
 Curatr is a **Progressive Web App (PWA)** that allows users to search museum and university art collections, filter artworks, and curate their own virtual exhibitions.
 It is designed to work seamlessly across devices, supports offline caching, and can be installed on mobile and desktop for a native app-like experience.
 
-This project was created as part of a Digital Skills Bootcamp in Software Engineering.
-
 ---
 
 ## 🛠 Tech Stack
 
 ### **Frontend**
-- `react` (v19)
-- `react-router-dom` (v7)
-- `vite`
-- `vite-plugin-pwa`
-- `tailwindcss` (v3)
-- `@heroicons/react`
-- `eslint` + `prettier`
+- `react` — core UI library
+- `javascript` — application logic
+- `react-router-dom` — client-side routing/navigation
+- `tailwindcss` — utility-first styling
+- `shadcn/ui` — prebuilt accessible components
+- `axios` — API calls to backend and museum/university APIs
+- `vite-plugin-pwa` — PWA support (service worker, manifest)
 
 ### **Backend**
-- `express`
-- `pg`
-- `pg-format`
-- `jest` + `supertest`
-- `husky` (Git hooks)
-- `dotenv`
+- `express.js` — server framework
+- `postgresql` — relational database
+- `pg` — PostgreSQL client for Node.js
+- `pg-format` — safe SQL query formatting
+- `jest` + `supertest` — testing framework + API testing
+- `express-session` — session management for MVP persistence
+- `dotenv` — environment variable management
+
+### **Other**
+- `vite` — frontend build tool and dev server
+- `husky` — Git hooks for pre-commit/test enforcement
 
 ---
 
@@ -34,16 +37,36 @@ This project was created as part of a Digital Skills Bootcamp in Software Engine
 - Search artworks by keyword or preset filters (powered by museum/university APIs).
 - View artwork details (`image`, `title`, `artist`, `year`, `description`, `source link`).
 - Create a temporary exhibition by adding selected artworks.
-- Browse curated exhibitions in a gallery-style viewer.
-- Session-based persistence for curated exhibitions.  
+- Remove artworks from the exhibition.
+- Browse curated exhibition in a gallery-style viewer.
+- Exhibition persists during the session (via `localStorage`).
 
-📂 Repository Structure
-exhibition-curator/
+---
+
+## 🚀 Extras (Future Features)
+
+- Save exhibitions permanently in the database.
+- User accounts with OAuth login (Google, ORCID, GitHub).
+- Share exhibitions via unique links.
+- Reorder artworks with drag-and-drop.
+- Add personal notes or descriptions to exhibitions.
+- Advanced filters (artist, medium, date range, location).
+- Loading skeletons for smooth UX.
+- Export exhibitions to PDF as a “virtual catalogue.”
+- Social media integration for sharing exhibitions.
+
+---
+
+## 📂 Repository Structure
+
+```plaintext
+curatr/
 │
-├── frontend/ # React + Vite + Tailwind app
-├── backend/ # Express + PSQL API
-├── docs/ # Planning docs, wireframes, db schema
-└── README.md # This file
+├── frontend/       # React + Vite + Tailwind PWA
+├── backend/        # Express + PSQL API
+├── docs/           # Planning docs, wireframes, db schema
+└── README.md       # This file
+
 
 📋 Minimum Requirements
 
