@@ -79,7 +79,7 @@ PostgreSQL v14+
 🚀 Getting Started
 
 1. Clone the repo
-   git clone https://github.com/YOUR_USERNAME/exhibition-curator.git
+   git clone https://github.com/piraturosu/curatr.git
    cd exhibition-curator
 
 2. Backend Setup
@@ -104,8 +104,8 @@ Environment variables
 
 Create .env.test and .env.development in /backend and add:
 
-PGDATABASE=exhibition_curator_test # for testing
-PGDATABASE=exhibition_curator # for development
+PGDATABASE=curatr_test # for testing
+PGDATABASE=curatr # for development
 
 Start backend server:
 
