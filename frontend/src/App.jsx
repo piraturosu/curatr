@@ -1,12 +1,21 @@
-import "./index.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import Exhibition from "./pages/Exhibition";
+import Gallery from "./pages/Gallery";
 
 function App() {
   return (
-    <>
-      <p className="text-4xl font-bold text-red-600">
-        If you see this in big red text, Tailwind works
-      </p>
-    </>
+    <Router>
+      <Header />
+      <main className="p-6 bg-background dark:bg-background-dark min-h-screen">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/exhibition" element={<Exhibition />} />
+          <Route path="/gallery/:id" element={<Gallery />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
