@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Exhibition from "./pages/Exhibition";
+import ExhibitionTemp from "./pages/ExhibitionTemp";
+import ArtworkDetails from "./pages/ArtworkDetalis";
 import Gallery from "./pages/Gallery";
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/exhibition" element={<Exhibition />} />
           <Route path="/gallery/:id" element={<Gallery />} />
+          <Route path="/exhibition/temp" element={<ExhibitionTemp />} />
+          <Route path="/artwork/:id" element={<ArtworkDetails />} />
         </Routes>
       </main>
     </Router>
