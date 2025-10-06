@@ -15,26 +15,32 @@ export default function Home() {
   );
   const tempSectionRef = useRef(null);
 
-  const fetchData = async (term = "", pageNum = 1, append = false) => {
+  const fetchData = async (term = "", pageNum = 1) => {
     setLoading(true);
     try {
       const results = await getAllArtworks(term, pageNum, 50);
-      setArtworks((prev) => (append ? [...prev, ...results] : results));
+      setArtworks(results);
     } catch (err) {
       console.error(err);
+      setArtworks([]);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    const searchTerm = query.trim();
+    if (!searchTerm) return;
+
+    await fetchData(query);
+    setLoading(true);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    fetchData(query);
-  };
 
   const handleAddToExhibition = (art) => {
     if (!tempExhibition.some((item) => item.id === art.id)) {
@@ -58,21 +64,86 @@ export default function Home() {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Discover Artworks</h1>
         <Button onClick={scrollToTempExhibition} className="text-sm">
-          🖼 View Temporary Exhibition
+          View Temporary Exhibition
         </Button>
       </div>
 
       {/* Search Section */}
-      <section className="bg-secondary dark:bg-secondary-dark rounded-2xl shadow-sm p-4">
-        <form onSubmit={handleSearch}>
+      <section className="bg-secondary dark:bg-secondary-dark rounded-2xl shadow-sm p-4 space-y-3">
+        <form onSubmit={handleSearch} className="flex gap-2">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search artworks, artists..."
-            className="w-full rounded-lg p-3 border border-border dark:border-border-dark bg-background dark:bg-background-dark placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary"
+            className="flex-1 rounded-lg p-3 border border-border dark:border-border-dark bg-background dark:bg-background-dark placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary"
           />
+          <button
+            type="submit"
+            className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition"
+          >
+            Search
+          </button>
         </form>
+
+        <p className="text-xs text-gray-500">
+          Press <span className="font-semibold">Enter</span> or click{" "}
+          <span className="font-semibold">Search</span> to find artworks.
+        </p>
+
+        {/* Suggested Search Terms */}
+        <div className="pt-2 border-t border-border dark:border-border-dark space-y-2">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+            Try these searches:
+          </h3>
+
+          {/* Suggested Categories */}
+          <div className="flex flex-wrap gap-2 text-sm">
+            {[
+              // Artists
+              { label: "Monet", value: "monet", group: "Artist" },
+              { label: "Picasso", value: "picasso", group: "Artist" },
+              { label: "Van Gogh", value: "vangogh", group: "Artist" },
+
+              // Subjects
+              { label: "Portrait", value: "portrait", group: "Subject" },
+              { label: "Landscape", value: "landscape", group: "Subject" },
+              { label: "Flower", value: "flower", group: "Subject" },
+
+              // Countries (adjective form)
+              { label: "Italian", value: "italian", group: "Country" },
+              { label: "French", value: "french", group: "Country" },
+              { label: "Chinese", value: "chinese", group: "Country" },
+
+              // Period / Style
+              { label: "Renaissance", value: "renaissance", group: "Style" },
+              { label: "Baroque", value: "baroque", group: "Style" },
+              { label: "Modern", value: "modern", group: "Style" },
+
+              // Material / Type
+              { label: "Oil", value: "oil", group: "Material" },
+              { label: "Sculpture", value: "sculpture", group: "Material" },
+              { label: "Bronze", value: "bronze", group: "Material" },
+            ].map((term) => (
+              <button
+                key={term.value}
+                onClick={() => {
+                  setQuery(term.value);
+                  fetchData(term.value);
+                }}
+                className="px-3 py-1 rounded-full border border-border dark:border-border-dark bg-background dark:bg-background-dark hover:bg-primary hover:text-white transition"
+              >
+                {term.label}
+              </button>
+            ))}
+          </div>
+
+          <p className="text-xs text-gray-500">
+            Tip: Use <span className="font-semibold">adjective forms</span> like
+            “italian”, “french”, or “chinese” instead of “Italy” or “France” for
+            better results.
+          </p>
+        </div>
       </section>
 
       {/* Discover Section */}
@@ -107,12 +178,12 @@ export default function Home() {
                       <Button onClick={() => handleAddToExhibition(art)}>
                         + Add
                       </Button>
-                    <Link
-                    to={`/artwork/${art.id}`}
-                    className="px-3 py-1 rounded-lg border border-border dark:border-border-dark text-gray-700 dark:text-gray-200 hover:bg-secondary dark:hover:bg-secondary-dark transition"
-                  >
-                    👁 View
-                  </Link>
+                      <Link
+                        to={`/artwork/${art.id}`}
+                        className="px-3 py-1 rounded-lg border border-border dark:border-border-dark text-gray-700 dark:text-gray-200 hover:bg-secondary dark:hover:bg-secondary-dark transition"
+                      >
+                        👁 View
+                      </Link>
                     </div>
                   </div>
                 </div>
