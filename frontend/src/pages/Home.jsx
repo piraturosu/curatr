@@ -35,7 +35,6 @@ export default function Home() {
     if (!searchTerm) return;
 
     await fetchData(query);
-    setLoading(true);
   };
 
   useEffect(() => {
