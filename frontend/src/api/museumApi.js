@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const chicagoBase = "https://api.artic.edu/api/v1/artworks";
 const clevelandBase = "https://openaccess-api.clevelandart.org/api/artworks/";
 
 /**
@@ -12,11 +11,20 @@ export const getChicagoArtworks = async (query = "", limit = 25, page = 1) => {
     limit,
     fields: "id,title,artist_title,date_display,image_id",
   };
-  if (query) params.q = query;
 
-  const { data } = await axios.get(chicagoBase, { params });
+  let url = "https://api.artic.edu/api/v1/artworks";
 
-  return data.data.map((art) => ({
+  // Use search endpoint only when query exists
+  if (query) {
+    url = "https://api.artic.edu/api/v1/artworks/search";
+    params.q = query;
+  }
+
+  const { data } = await axios.get(url, { params });
+
+  const artArray = query ? data.data : data.data;
+
+  return artArray.map((art) => ({
     id: `aic-${art.id}`,
     title: art.title,
     artist: art.artist_title || "Unknown",
