@@ -1,5 +1,43 @@
 {
   "GET /api": {
     "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "POST /api/auth/register": {
+    "description": "Registers a new user account.",
+    "input fields": ["username", "password"],
+    "exampleRequest": {
+      "username": "george",
+      "password": "mypassword123"
+    },
+    "exampleResponse": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "user": {
+        "user_id": 1,
+        "username": "george"
+      }
+    },
+    "errors": {
+      "400": "Missing username or password",
+      "409": "Username already exists"
+    }
+  },
+  "POST /api/auth/login": {
+    "description": "Authenticates a user and returns a JWT token.",
+    "input fields": ["username", "password"],
+    "exampleRequest": {
+      "username": "george",
+      "password": "mypassword123"
+    },
+    "exampleResponse": {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "user": {
+        "user_id": 1,
+        "username": "george"
+      }
+    },
+    "errors": {
+      "400": "Missing username or password",
+      "401": "Invalid credentials"
+    }
   }
 }

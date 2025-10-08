@@ -1,5 +1,10 @@
 module.exports = {
-  usersData: [{ username: "testuser", password_hash: "hashed123" }],
+  usersData: [
+    {
+      username: "testuser",
+      password_hash: `$2b$10$.PlU23KmZFjbJa2l0436OuMVJhsRD/RUfHf3RS.gkYy5Nve/Ruike`,
+    },
+  ],
   exhibitionsData: [
     {
       user_id: 1,
