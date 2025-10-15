@@ -5,6 +5,7 @@ import Exhibition from "./pages/Exhibition";
 import ExhibitionTemp from "./pages/ExhibitionTemp";
 import ArtworkDetails from "./pages/ArtworkDetalis";
 import Gallery from "./pages/Gallery";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/gallery/:id" element={<Gallery />} />
           <Route path="/exhibition/temp" element={<ExhibitionTemp />} />
           <Route path="/artwork/:id" element={<ArtworkDetails />} />
+          <Route path="/login" element={<LoginForm />} />
         </Routes>
       </main>
     </Router>
