@@ -6,6 +6,7 @@ import ExhibitionTemp from "./pages/ExhibitionTemp";
 import ArtworkDetails from "./pages/ArtworkDetalis";
 import Gallery from "./pages/Gallery";
 import LoginForm from "./components/LoginForm";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -14,7 +15,14 @@ function App() {
       <main className="p-6 bg-background dark:bg-background-dark min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/exhibition" element={<Exhibition />} />
+          <Route
+            path="/exhibition"
+            element={
+              <ProtectedRoute>
+                <Exhibition />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/gallery/:id" element={<Gallery />} />
           <Route path="/exhibition/temp" element={<ExhibitionTemp />} />
           <Route path="/artwork/:id" element={<ArtworkDetails />} />
