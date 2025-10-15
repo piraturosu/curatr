@@ -4,12 +4,15 @@ const app = express();
 const endpoints = require("./endpoints.json");
 
 const authRouter = require("./routes/auth.routes");
+const tempExhibitionRouter = require("./routes/tempExhibitions.routes");
+
 
 app.use(cors());
 app.use(express.json());
 
 
 app.use("/api/auth", authRouter);
+app.use("/api/exhibitions/temp", tempExhibitionRouter);
 app.get("/api", (req, res) => {
   res.status(200).send({ endpoints });
 });

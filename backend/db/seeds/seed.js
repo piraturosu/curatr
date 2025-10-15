@@ -1,7 +1,8 @@
 const db = require("../connection");
 const format = require("pg-format");
 
-const seed = async ({ usersData, exhibitionsData }) => {
+const seed = async ({ usersData, exhibitionsData, tempExhibitionsData }) => {
+  await db.query("DROP TABLE IF EXISTS temp_exhibitions CASCADE;");
   await db.query("DROP TABLE IF EXISTS exhibitions CASCADE;");
   await db.query("DROP TABLE IF EXISTS users CASCADE;");
 
@@ -24,7 +25,19 @@ const seed = async ({ usersData, exhibitionsData }) => {
     );
   `);
 
-  const formattedUsers = usersData.map((user) => [user.username, user.password_hash]);
+  await db.query(`
+    CREATE TABLE temp_exhibitions (
+      temp_id SERIAL PRIMARY KEY,
+      user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+      artwork JSONB NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+  `);
+
+  const formattedUsers = usersData.map((user) => [
+    user.username,
+    user.password_hash,
+  ]);
   const userInsertStr = format(
     `INSERT INTO users (username, password_hash) VALUES %L RETURNING *;`,
     formattedUsers,
@@ -42,6 +55,20 @@ const seed = async ({ usersData, exhibitionsData }) => {
       formattedExhibitions,
     ),
   );
+
+  if (tempExhibitionsData?.length) {
+    const formattedTemp = tempExhibitionsData.map((item) => [
+      item.user_id,
+      item.artwork,
+    ]);
+
+    await db.query(
+      format(
+        `INSERT INTO temp_exhibitions (user_id, artwork) VALUES %L RETURNING *;`,
+        formattedTemp,
+      ),
+    );
+  }
 
   console.log("Seeding complete.");
 };

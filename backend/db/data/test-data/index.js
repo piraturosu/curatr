@@ -5,6 +5,19 @@ module.exports = {
       password_hash: `$2b$10$.PlU23KmZFjbJa2l0436OuMVJhsRD/RUfHf3RS.gkYy5Nve/Ruike`,
     },
   ],
+  tempExhibitionsData: [
+    {
+      user_id: 1,
+      artwork: {
+        id: "pex-1001",
+        title: "Sample Artwork",
+        artist: "Test Artist",
+        year: "2000",
+        image:
+          "https://images.pexels.com/photos/1001682/pexels-photo-1001682.jpeg",
+      },
+    },
+  ],
   exhibitionsData: [
     {
       user_id: 1,
