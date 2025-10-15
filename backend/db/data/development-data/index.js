@@ -2,11 +2,13 @@ module.exports = {
   usersData: [
     {
       username: "george",
-      password_hash: "$2b$10$Fak3HashedPassword12345",
+      password_hash:
+        "$2b$10$QzypHl0nC4iRBqx85dm8pO/v1ZEdcfjQzXadaTnTE5LcY2Fa1q0DS",
     },
     {
       username: "holly",
-      password_hash: "$2b$10$AnotherFakeHash67890",
+      password_hash:
+        "$2b$10$ZobMua3RUPbVCkc5ZqTx1egMISgId8H5qfx8TbTYOWkLpvPRlR9UW",
     },
   ],
 
