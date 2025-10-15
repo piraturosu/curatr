@@ -90,7 +90,7 @@ export default function Header() {
           <Link
             to="/profile"
             onClick={() => setMenuOpen(false)}
-            className="block flex items-center gap-2 hover:text-accent"
+            className="flex items-center gap-2 hover:text-accent"
           >
             <UserIcon className="h-5 w-5" /> Profile
           </Link>
